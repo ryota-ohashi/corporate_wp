@@ -1,0 +1,813 @@
+/*
+Theme Name: simplewhite
+Theme URI: http://whitethings.wp.xdomain.jp
+Author: Ryota Ohashi
+Author URI: http://whitethings.wp.xdomain.jp
+Description: ブログやメディアに使えるシンプルなテーマ。
+Version: 1.0
+*/
+
+@charset 'utf-8';
+
+// メディアクエリ用
+$pc: 1024px; // PC
+$tab: 768px; // タブレット
+$sp: 480px;  // スマホ
+
+@mixin pc {
+    @media (max-width: ($pc)) {
+        @content;
+    }
+}
+@mixin tab {
+    @media (max-width: ($tab)) {
+        @content;
+    }
+}
+@mixin sp {
+    @media (max-width: ($sp)) {
+        @content;
+    }
+}
+
+// 変数
+$font: serif;
+$hover-color: rgb(180, 70, 70);
+
+// リセット用
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: black;
+    word-break: break-all;
+}
+li {
+    list-style: none;
+}
+h1, h2, h3, p{
+    word-wrap: break-word;
+}
+body {
+    border: 5px solid black;
+    counter-reset: rank_number;  
+    
+    @include sp {
+        border: none;
+    }
+}
+
+// 検索フォーム用（2か所共通）
+.searchform {
+    margin-bottom: 30px;
+
+    #s {
+        height: 30px;
+        width: 80%;
+        background: rgb(245, 245, 245);
+        vertical-align: middle;
+        border-radius: 0;
+        border: 0.1px solid rgb(240, 240, 240);
+        appearance: none;
+
+        @include pc {
+            width: 68%;
+        }
+        @include tab {
+            width: 88%;
+        }
+        @include sp {
+            height: 20px;
+        }
+
+    }
+    #searchsubmit {
+        height: 30px;
+        width: 50px;
+        font-family: $font;
+        padding: 0 10px;
+        margin-left: -3.5px;
+        background: #000;
+        color: white;
+        border: none;
+        vertical-align: middle;
+        cursor: pointer;
+        transition: .3s ease;
+        appearance: none;
+        border-radius: 0;
+
+        @include sp {
+            height: 20px;
+            width: 30px;
+            font-size: 10px;
+            padding: 0 6px;
+        }
+
+        &:hover {
+            background: $hover-color;
+        }
+    }
+    .screen-reader-text {
+        display: none;
+    }
+}
+
+// ヘッダー
+header {
+    width: 100%;
+    background: white;
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    padding: 50px 0 20px;
+
+    @include sp {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 80;
+        padding: 0;
+        box-shadow: 1px 1px 3px rgb(230, 230, 230);
+    }
+    
+    // ロゴ
+    .header-top {
+        position: relative;
+
+        @include sp {
+            padding: 5px 0 0 0; 
+        }
+
+        .header-main-title {
+            font-size: 62px;
+            font-weight: bold;
+
+            @include sp {
+                font-size: 32px;
+            }
+
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            user-select: none;
+            padding-bottom: 30px;
+
+            @include sp {
+                position: relative;
+                padding-bottom: 0;
+                bottom: 5px;
+                font-size: 10px;
+            }
+        }
+    }
+
+    // スマホ用ハンバーガーアイコン
+    .header-sp-menu {
+        display: none;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 18px;
+        right: 20px;
+        z-index: 99;
+
+        @include sp {
+            display: block;
+        }
+             
+            span {
+                display: block;
+                width: 30px;
+                height: 2px;
+                background-color: #000;
+                transition: all .3s ease;
+    
+            }
+            .line1 {
+                position: relative;
+            }
+            .line2 {
+                position: absolute;
+                top: 12px;
+                right: 0;
+            }
+            .line3 {
+                position: absolute;
+                top: 24px;
+                right: 0;
+            }
+    }
+
+    // グローバルメニュー
+    .gnav {
+        display: inline-flex;
+        justify-content: center;
+        margin-bottom: 25px;
+        padding: 8px 8px;
+        font-size: 16px;
+        border-top: 1px solid grey;
+        border-bottom: 1px solid grey;
+
+        @include tab {
+            font-size: 14px;
+        }
+
+        @include sp {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 60px;
+            z-index: 90;
+            width: 100%;
+            height: 100vh;
+            overflow-y: scroll;
+            background: white;
+
+            .menu-item-35 {
+                display: none;
+            }
+        }
+        .sp-menu-cat {
+            display: none;
+
+            @include sp {
+                display: inline;
+                font-size: 18px;
+                padding: 10px 0;
+                font-weight: bold;
+            }
+        }
+        
+        .searchform {
+            display: none;
+            
+            @include sp {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+
+            @include sp {
+                width: 100%;
+                justify-content: start;
+                flex-direction: column;
+            }
+
+            .menu-item {
+                padding: 0 10px;
+
+                @include sp {
+                    width: 100%;
+                    padding: 5px 0;
+                }
+                
+                a {
+                    transition: .3s ease;
+                    
+                    &:hover {
+                        color: $hover-color;
+                    }
+                }
+
+            }
+        }
+        .social-icons {
+            display: flex;
+            padding: 3px 0 0 30px;
+
+            @include sp {
+                display: none;
+            }
+
+
+            .fab {
+                padding: 0 10px;
+                transition: .3s;
+
+                &:hover {
+                    color: $hover-color;
+                }
+            }
+        }
+    }
+}
+
+// スマホ用ハンバーガークリック時
+.sp-menu-open .header-sp-menu {
+    
+    span {
+        display: inline-block;
+        transition: all .3s ease;
+    }
+    .line1 {
+        top: -2px;
+        transform: rotate(225deg);
+    }
+    .line2 {
+        display: none;
+    }
+    .line3 {
+        top: 11px;
+        transform: rotate(-225deg);
+    }
+}
+.sp-menu-open {
+    overflow: hidden;
+    height: 100%;
+}
+.sp-menu-open .gnav {
+    display: block;
+    animation: sp-menu-fadein .3s ease 0s;
+}
+@keyframes sp-menu-fadein{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+// コンテナ
+.container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include tab {
+        flex-direction: column;
+    }
+
+    @include sp {
+        margin: 65px auto 0;
+    }
+}
+
+// パンくずリスト
+.bread-nav {
+    width: 90%;
+    display: flex;
+    font-family: $font;
+    margin-bottom: 25px;
+    
+    @include tab{
+        padding-left: 4.5%;
+    }
+    
+    @include sp {
+        font-size: 10px;
+        margin: 5px 0 10px;
+    }
+    li {
+        margin:0 8px;
+        white-space: nowrap;
+    }
+    li:last-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+// ピックアップ用
+.pickup-post-img {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    margin-bottom: 50px;
+    background-size: cover;
+
+    @include tab {
+        height: 300px;
+    }
+    @include sp {
+        height: 200px;
+    }
+}
+.pickup-post {
+    max-width: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 50px;
+    text-align: center;
+    line-height: 1.2;
+    font-size: 42px;
+    font-family: $font;
+    background: white;
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(-50%);
+
+    @include tab {
+        font-size: 24px;
+    }
+    @include sp {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+// トップページ
+.posts-container {
+    width: 65%;
+    margin-right: 5%;
+    display: flex;
+    align-self: flex-start;
+    flex-wrap: wrap;
+
+    @include tab {
+        width: 100%;
+    }
+
+    .post {
+        width: 46%;
+        margin: 0 2% 50px 2%;
+        border: 0.1px solid rgb(235, 235, 235);
+        font-family: $font;
+        transition: .3s ease-out;
+
+        &:hover {
+            box-shadow: 3px 3px 10px rgba($color: #000000, $alpha: 0.6);
+        }
+
+        .post-img {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .post-meta {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+            font-size: 14px;
+
+            @include sp {
+                font-size: 10px;
+            }
+        }
+        .post-title {
+            padding: 10px;
+
+            @include sp {
+                font-size: 14px;
+            }
+        }
+    }
+    .post:first-child {
+        display: inline-block;
+        width: 100%;
+        height: initial;
+
+        .post-img {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+.posts-nav {
+    display: flex;
+    justify-content: center;
+
+    &::after {
+        content: '';
+        width: 300px;
+    }
+    .pnav {
+        width: 800px;
+        margin:0 75px 0 25px;
+    }
+
+    .page-numbers {
+        font-size: 14px;
+        padding: 0 10px;
+        font-family: $font;
+    } 
+    .current {
+        color: $hover-color;
+    }   
+}
+
+//記事ページ
+.single-container {
+    width: 65%;
+    margin-right: 50px;
+    padding: 0 1.3%;
+    font-family: $font;
+
+    @include tab {
+        width: 100%;
+        padding: 0 5%;
+        margin-bottom: 50px;
+    }
+
+    .single {
+        width: 100%;
+
+        .single-img {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .social-icons {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px dashed grey;
+            margin-top: 10px;
+            padding: 10px 0 0 0;
+
+            .icon {
+                width: 49%;
+                text-align: center;
+                font-size: 14px;
+
+                @include sp {
+                    font-size: 10px;
+                }
+            }
+            .fab {
+                display: block;
+                border: 1px solid grey;
+                color: grey;
+                padding: 10px 0;
+                transition: .3s ease;
+
+                @include sp {
+                    padding: 5px 0;
+                }
+            }
+            .fa-twitter:hover {
+                color: #55acee;
+                border: 1px solid #55acee;
+            }
+            .fa-facebook-f:hover {
+                color: #315096;
+                border: 1px solid #315096;
+            }
+        }
+        .single-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 12px;
+
+            @include sp {
+                margin-top: 0;
+            }
+        }
+        .single-title {
+            font-size: 36px;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed grey;
+
+            @include sp {
+                font-size: 20px;
+            }
+        }
+    }
+    .prev-next-link {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+
+        .prev-link, .next-link {
+            display: block;
+            width: 49%;
+            padding: 10px;
+            border: 1px solid white;
+            transition: .3s ease;
+
+            @include sp {
+                font-size: 12px;
+            }
+            
+            &:hover {
+                background: rgba(230, 230, 230, 0.2);
+            }
+        }
+        .thumb-wrap {
+            display: flex;
+
+
+            p {
+                padding-left: 15px;
+                font-size: 20px;
+
+                @include sp {
+                    font-size: 10px;
+                }
+            }
+        }
+        .wp-post-image {
+            @include sp {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        .next-label {
+            text-align: right;
+        }
+    }
+}
+
+// サイドバー
+.sidebar {
+    width: 25%;
+    height: 100%;
+    font-family: $font;
+
+    @include tab {
+        width: 96%;
+        margin: 0 2%;
+    }
+    
+    // ウィジェット全体
+    .widget {
+        margin-bottom: 20px;
+
+        h3 {
+            display: inline-block;
+            padding-left: 10px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            border-left: 3px solid black;
+
+            @include sp {
+                font-size: 14px;
+            }
+        }
+        ul {
+            @include sp {
+                font-size: 12px;
+            }
+        }
+    }
+
+    // 人気ランキング
+    .wpp-post-title {
+        word-wrap: break-word;
+    }
+    .wpp-thumbnail {
+        width: 100%;
+        height: auto;
+    }
+    .wpp-list li {
+        margin-bottom: 10px;
+        transition: .3s ease;
+
+        &:hover {
+            transform: translateX(13px);
+
+            @include sp {
+                transform: initial;
+                box-shadow: 1px 1px 2px rgb(220, 220, 220);
+            }
+        }
+
+    }
+
+    .wpp_thumb_wrapper{
+        position: relative;
+    }
+    .wpp_thumb_wrapper:after{
+        counter-increment: rank_number;
+        content: counter(rank_number);
+        display: block;
+        position: absolute;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        background: $hover-color;
+        color: white;
+        font-size: 16px;
+        line-height: 2;
+        text-align: center;
+    }
+
+    @include tab{
+        .wpp-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            li {
+                width: 48%;  
+            }
+        }
+    }
+
+    // 急上昇ランキングのナンバー
+    @include sp {
+        .wpp_thumb_wrapper::after {
+            width: 21px;
+            height: 21px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    }
+
+    // 最近の投稿（サイドバー）
+    .recent-posts {
+        display: flex;
+        width: 100%;
+        margin-top: 10px;
+        transition: .3s ease;
+    
+        &:hover {
+            transform: translateX(13px);
+        }
+
+        .post-date {
+            font-size: 14px;
+            opacity: 0.6;
+
+            @include sp {
+                font-size: 10px;
+            }
+        }
+    }
+    .cat-item a {
+        transition: .3s ease;
+
+        &:hover {
+            color: $hover-color;
+        }
+    }
+}
+
+// 404ページ
+.unknown-content {
+    width: 85%;
+    font-family: $font;
+
+    .none-text {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 50px;
+        background: rgb(247, 247, 247);
+    }
+    h2 {
+        margin: 20px 0;
+    }
+    .sidebar {
+        width: 100%;
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;            
+        }
+
+        .wpp-list {
+
+            li {
+                margin-right: 30px;
+            }
+        }
+        .recent-posts {
+            width: 300px;
+            margin-right: 30px;
+        }
+    }
+}
+
+// 検索結果ページ
+.search-result {
+    width: 100%;
+    margin-right: 50px;
+    padding: 0 1.3% 50px 1.3%;
+    font-family: $font;
+}
+.search-result-none {
+    @extend .search-result;
+    font-size: 24px;
+    text-align: center;
+}
+
+// フッター
+.footer {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    font-family: $font;
+
+    @include sp {
+        font-size: 10px;
+        padding: 5px 0;
+        transform: scale(0.8)
+    }
+}
