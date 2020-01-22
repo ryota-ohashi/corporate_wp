@@ -1,0 +1,48 @@
+.contact {
+
+    &__top {
+        @extend .company__top;
+        background: url("lib/img/saishin_contact.jpg") center/cover;
+    
+        @include sp {
+            margin-top: 60px;       
+        }
+
+        &__title {
+            @extend .company__top__title;
+        }
+    }
+    &__description {
+        @extend .company__description;
+    }
+}
+.wpcf7-form {
+    width: 500px;
+    margin: 0 auto 80px;
+    font-size: 14px;
+
+    @include sp {
+        width: 90vw;
+        margin: 30px auto 80px;
+    }
+
+    p {
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    label {
+        margin: 20px 0;
+    }
+}
+.wpcf7-form-control {
+    width: 80%;
+    height: 30px;
+    font-size: 18px;
+    margin-top: 5px;
+    padding: 5px;
+}
+.wpcf7-textarea {
+    width: 100%;
+    height: 200px;
+}

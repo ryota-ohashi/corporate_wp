@@ -1,0 +1,257 @@
+// お知らせページ
+.news {
+
+    &__top {
+        @extend .company__top;
+        background: url("lib/img/saishin_front_top_fade.jpg") center/cover;
+
+        @include sp {
+            margin-top: 60px;       
+        }
+
+        &__title {
+            @extend .company__top__title;
+        }
+    }
+    &__description {
+        @extend .company__description;
+    }
+    &__cat {
+        text-align: center;
+        @extend .contents__news__title;
+    }
+    &__list {
+
+        &__item {
+            position: relative;
+            max-width: 1440px;
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #f6f6f6;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                display: block;
+                width: 0%;
+                height: 1px;
+                background-color: grey;
+                transition: .6s ease;
+            }
+            &:hover::after {
+                width: 100%;
+            }
+    
+            @include sp {
+                flex-direction: column;
+                font-size: 14px;   
+            }
+            & a {
+                color: black;
+            }
+            &__post-date {
+                width: 150px;
+    
+                @include sp {
+                    font-size: 12px;
+                }
+            }
+            .post-categories {
+                @extend .news__list__item__post-date;
+    
+    
+                &:hover a{
+                    color: $main-color;
+                    transition: .3s ease;
+                }
+            }
+            &__post:hover {
+                transition: .3s ease;
+                color: $main-color;
+            }
+        }
+    }
+
+    &__item:first-child {
+        border-top: 1px solid grey;
+    }
+
+    &__nav {
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+    
+        .page-numbers {
+            font-size: 18px;
+            padding: 0 10px;
+            color: black;
+    
+            @include sp {
+                font-size: 14px;
+                padding: 0 5px;
+            }
+        } 
+        .current {
+            color: $sub-color;
+        }   
+    }
+}
+
+//記事ページ
+.single {
+    width: 100%;
+
+    @include tab {
+        width: 100%;
+        padding: 0 5%;
+        margin-bottom: 50px;
+    }
+
+    &__top {
+        @extend .news__top;
+        
+        &__title {
+            @extend .news__top__title;
+        }
+    }
+
+    &__article {
+        width: 80%;
+        margin: 0 auto;
+        border-bottom: 1px dashed grey;
+        
+        
+        &__meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 16px;
+
+            @include sp {
+                margin-top: 0;
+                font-size: 12px;
+            }
+        }
+        &__title {
+            font-size: 36px;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed grey;
+
+            @include sp {
+                font-size: 20px;
+            }
+        }
+        &__text {
+            font-size: 20px;
+            letter-spacing: 2px;
+            line-height: 2;
+        }
+        &__social {
+            position: fixed;
+            top: 60vh;
+            right: 3%;
+            display: inline;
+        
+            &__icon {
+                font-size: 14px;
+                margin-bottom: 10px;
+        
+                @include sp {
+                    font-size: 10px;
+                }
+
+                .fab {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    padding: 10px 0;
+                    border-radius: 50%;
+                    transition: .3s ease;
+            
+                    @include sp {
+                        padding: 5px 0;
+                    }
+                }
+            
+                .fa-twitter {
+                    color: #55acee;
+                    border: 1px solid #55acee;
+            
+                    &:hover {
+                        color: white;
+                        background-color: #55acee;
+                    }
+                }
+            
+                .fa-facebook-f {
+                    color: #315096;
+                    border: 1px solid #315096;
+            
+                    &:hover {
+                        color: white;
+                        background-color: #315096;
+                    }
+                }
+            }
+        }
+    }
+
+    &__link {
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 80px;
+        padding: 20px 0;
+
+        & > a {
+            display: block;
+            width: 49%;
+            padding: 10px;
+            border: 1px dashed grey;
+            transition: .3s ease;
+            color: black;
+
+            @include sp {
+                font-size: 12px;
+            }
+            
+            &:hover {
+                background: rgba(230, 230, 230, 0.2);
+            }
+
+            .thumb-wrap {
+    
+                p {
+                    font-size: 16px;
+                    color: black;
+    
+                    @include sp {
+                        font-size: 10px;
+                    }
+                }
+                .next-title {
+                    text-align: right;
+                }
+            }
+        }
+        .wp-post-image {
+            @include sp {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        &__next-label {
+            text-align: right;
+        }
+    }
+}

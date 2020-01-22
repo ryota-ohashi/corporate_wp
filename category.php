@@ -1,46 +1,49 @@
 <?php get_header(); ?>
 
 <div class="container">
-	<div class="bread-nav">
-		<?php mytheme_breadcrumb(); ?>
-	</div>
-	<main class="posts-container">
+<main class="news">
+		<div class="news__top">
+			<h2 class="news__top__title">ニュース</h2>
+		</div>
+
+	<?php if( is_category() ): ?>
+		<h3 class="news__cat"><?php single_cat_title(); ?></h3>
+	<?php endif; ?>
 
 		<?php
-		if (have_posts()) :
-			while (have_posts()) :
-				the_post();
+		if (have_posts()) : 
 		?>
-
-		<a href="<?php the_permalink(); ?>" class="post">
-			
-			<div class="post-img">
-				<?php if (has_post_thumbnail()) : ?>
-				<?php the_post_thumbnail(true); ?>
-				<?php else: ?>
-				<?php endif; ?>
-			</div>
-			<div class="post-meta">
-				<p class="post-category"><?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?></p>
-				<p class="post-date"><?php echo get_the_date(); ?></p>
-			</div>
-			<h2 class="post-title"><?php the_title(); ?></h2>
-		</a>
-		
-
+			<ul class="news__list">
+			<?php 
+				while (have_posts()) : the_post();
+			?>
+				<li class="news__list__item">				
+					<time class="news__list__item__post-date" datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y年m月d日'); ?></time>
+					<?php the_category(''); ?>
+					<a href="<?php the_permalink(); ?>" class="news__list__item__post"><?php the_title(); ?></a>				
+				</li>
+			<?php
+				endwhile;
+			?>
+			</ul>
 		<?php
-			endwhile;
 		else:
 		?>
 
-		<p>記事はありません！</p>
+		<p>お知らせはありません。</p>
 
 		<?php
 		endif;
 		?>
 
-</main>
-<?php get_sidebar(); ?>
+		<div class="news__nav">
+			<div class="pnav"><?php the_posts_pagination( array(
+				'mid_size' => 7,
+				'screen_reader_text' => ' ',
+			)); ?></div>
+		</div>
+
+	</main>
 </div>
 <div class="posts-nav">
 	<div class="pnav"><?php the_posts_pagination( array(

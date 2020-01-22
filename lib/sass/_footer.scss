@@ -1,0 +1,105 @@
+// フッター
+.footer {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: $main-color;
+    color: white;
+    font-family: $jap-font;
+
+    @include tab {
+        padding: 20px 40px 0;
+    }
+
+    @include sp {
+        font-size: 10px;
+        padding: 15px 0 5px;
+    }
+
+    .menu {
+        display: flex;
+        border-bottom: 1px solid #fff;
+        padding-bottom: 20px;
+
+        @include sp {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .menu-item {
+            padding-right: 30px;
+
+            @include tab {
+                font-size: 14px;
+            }
+            @include sp {
+                width: 50%;
+                padding-right: 0;
+            }
+        }
+
+        a {
+            color: white;
+        }
+    }
+
+    &__sub {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+
+        @include tab {
+            flex-direction: column;
+        }
+        @include sp {
+            text-align: left;
+            padding-top: 10px;
+        }
+        
+        &__company {
+            display: flex;
+            align-items: center;
+
+            @include tab {
+                width: 100%;
+            }
+            @include sp {
+                flex-direction: column;
+			}
+
+            &__logo {
+                font-size: 24px;
+                padding-right: 30px;
+                font-family: $title-font;
+
+                @include sp {
+                    padding-right: 0;
+                    font-size: 28px;
+                }
+            }
+            &__address {
+                font-style: normal;
+                font-size: 14px;
+
+                @include sp {
+                    font-size: 10px;
+                    display: none;
+                }
+
+                &__post {
+                    padding-right: 10px;
+                }
+                &__tel {
+                    padding-left: 10px;
+                }
+            }
+        }
+        &__copyright {
+            font-size: 10px;
+
+            @include tab {
+                transform: scale(0.7);
+            }
+        }
+    }
+}

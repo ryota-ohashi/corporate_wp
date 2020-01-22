@@ -1,44 +1,22 @@
 <?php get_header(); ?>
 
-	<div class="container">
-		
-		<div class="bread-nav">
-			<?php mytheme_breadcrumb(); ?>
-		</div>
+	<?php
+	if (have_posts()) :
+		while (have_posts()) :
+			the_post();
+	?>
 
-		<main class="single-container">
+		<?php the_content(); ?>
 
-			<?php
-			if (have_posts()) :
-				while (have_posts()) :
-					the_post();
-			?>
+	<?php
+		endwhile;
+	else:
+	?>
 
-			<section class="single">
-				<div class="single-img">
-					<?php if (has_post_thumbnail()) : ?>
-					<?php the_post_thumbnail(true); ?>
-					<?php else: ?>
-					<?php endif; ?>
-				</div>
-				<h2 class="single-title"><?php the_title(); ?></h2>
-				<div class="single-text">
-					<?php the_content(); ?>
-				</div>
-			</section>
+	<p>ページはありません！</p>
 
-			<?php
-				endwhile;
-			else:
-			?>
+	<?php
+	endif;
+	?>
 
-			<p>ページはありません！</p>
-
-			<?php
-			endif;
-			?>
-
-        </main>	
-		<?php get_sidebar(); ?>
-	</div>
 <?php get_footer(); ?>

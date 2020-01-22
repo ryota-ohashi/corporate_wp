@@ -1,72 +1,50 @@
 <?php get_header(); ?>
 
 <div class="container">
-	<div class="bread-nav">
-		<?php mytheme_breadcrumb(); ?>
-	</div>
-	<?php
-		$pickup = array(
-			'meta_query' => array(
-				array(	'key'=>'pickup',
-					'value'=>'1'
-				)
-			)
-		);
-		$pickup_query = new WP_Query($pickup);
-	?>
 
-	<?php while ( $pickup_query->have_posts() ) : $pickup_query->the_post(); ?>
-		<div class="pickup-post-img" style="background-image: url(<?php echo wp_get_attachment_url( get_post_thumbnail_id() ); ?>)">
-			<a href="<?php the_permalink(); ?>" class="pickup-post">
-				<h2 class="pickup-post-title"><?php the_title(); ?></h2>
-			</a>
+	<main class="news">
+		<div class="news__top">
+			<h2 class="news__top__title">ニュース</h2>
 		</div>
+		<p class="news__description">株式会社Saishinに関するプレスリリースやトピックを掲載。<br>また、定期的に開催しているセミナーに関する情報もこちらに掲載致します。</p>
 
-	<?php endwhile; // end of the loop. ?>
-	<?php wp_reset_postdata(); ?>
-
-	<main class="posts-container">
+	<?php if( is_category() ): ?>
+		<h3><?php single_cat_title(); ?></h3>
+	<?php endif; ?>
 
 		<?php
-		if (have_posts()) :
-			while (have_posts()) :
-				the_post();
+		if (have_posts()) : 
 		?>
-
-		<a href="<?php the_permalink(); ?>" class="post">
-			
-			<div class="post-img">
-				<?php if (has_post_thumbnail()) : ?>
-				<?php the_post_thumbnail(true); ?>
-				<?php else: ?>
-				<?php endif; ?>
-			</div>
-			<div class="post-meta">
-				<p class="post-category"><?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?></p>
-				<p class="post-date"><?php echo get_the_date(); ?></p>
-			</div>
-			<h2 class="post-title"><?php the_title(); ?></h2>
-		</a>
-		
-
+			<ul class="news__list">
+			<?php 
+				while (have_posts()) : the_post();
+			?>
+				<li class="news__list__item">				
+					<time class="news__list__item__post-date" datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y年m月d日'); ?></time>
+					<?php the_category(''); ?>
+					<a href="<?php the_permalink(); ?>" class="news__list__item__post"><?php the_title(); ?></a>				
+				</li>
+			<?php
+				endwhile;
+			?>
+			</ul>
 		<?php
-			endwhile;
 		else:
 		?>
 
-		<p>記事はありません！</p>
+		<p>お知らせはありません。</p>
 
 		<?php
 		endif;
 		?>
 
-</main>
-<?php get_sidebar(); ?>
-</div>
-<div class="posts-nav">
-	<div class="pnav"><?php the_posts_pagination( array(
-		'mid_size' => 10,
-		'screen_reader_text' => ' ',
-	)); ?></div>
+		<div class="news__nav">
+			<div class="pnav"><?php the_posts_pagination( array(
+				'mid_size' => 7,
+				'screen_reader_text' => ' ',
+			)); ?></div>
+		</div>
+
+	</main>
 </div>
 <?php get_footer(); ?>

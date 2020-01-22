@@ -1,0 +1,151 @@
+.service {
+    
+    &__top {
+        @extend .company__top;
+        background: url("lib/img/saishin_top2_service.png") center/cover;
+
+        &__title {
+            @extend .company__top__title;
+        }
+    }
+    &__description {
+        @extend .company__description;
+    }
+
+    &__contents {
+        margin-top: 50px;
+
+        @include sp {
+            margin-top: 0;
+        }
+
+        &__item {
+            width: 80vw;
+            margin: 0 auto 100px;
+            display: flex;
+
+            @include tab {
+                flex-direction: column;
+            }
+            @include sp {
+                width: 90vw;
+                margin: 0 auto;
+            }
+
+            &:nth-child(even) {
+                flex-direction: row-reverse;
+
+                @include tab {
+                    flex-direction: column;
+                }
+            }
+
+            &__word {
+                width: 50%;
+                padding: 0 30px;
+
+                @include tab {
+                    width: 100%;
+                    padding: 0;
+                }
+
+                &__number {
+                    font-size: 72px;
+                    font-weight: bold;
+                    color: rgb(220, 220, 220);
+                    transform: translateY(20px);
+
+                    @include sp {
+                        font-size: 56px;
+                    }
+                }
+                &__title {
+                    font-size: 24px;
+                    color: $sub-color;
+                    margin-bottom: 30px;
+                    letter-spacing: 1px;
+                    opacity: 0.6;
+
+                    @include sp {
+                        font-size: 20px;
+                        margin-bottom: 15px;
+                    }
+                }
+                &__text {
+                    width: 80%;
+                    font-size: 18px;
+                    letter-spacing: 1px;
+
+                    @include tab {
+                        width: 100%;
+                        font-size: 16px;
+                    }
+                }
+            }
+            &:nth-child(even) {
+                .service__contents__item__word__number, .service__contents__item__word__title {
+                    text-align: right;
+
+                    @include tab {
+                        text-align: left;
+                    }
+                }
+                .service__contents__item__word__text {
+                    margin: 0 0 0 auto;
+                }
+            }
+
+            &__img {
+                width: 50%;
+                position: relative;
+                padding: 20px 30px;
+
+                @include tab {
+                    width: 100%;
+                    padding: 20px 0;
+                }
+
+                & img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            & .service__contents__item__img::after {
+                content: "";
+                display: block;
+                position: absolute;
+                background-color: $bg-grey-color;
+                z-index: -1;
+
+                @include tab {
+                    display: none;
+                }
+            }
+            &:nth-child(1) .service__contents__item__img::after {
+                top: 55%;
+                left: -10%;
+                width: 90%;
+                height: 50%;
+            }
+            &:nth-child(2) .service__contents__item__img::after {
+                top: 50%;
+                left: 50%;
+                width: 120%;
+                height: 50%;
+                transform: translate(-50%, -50%);
+            }
+            &:nth-child(3) .service__contents__item__img::after {
+                bottom: 55%;
+                left: -10%;
+                width: 90%;
+                height: 50%;
+            }
+            &:nth-child(4) .service__contents__item__img::after {
+                top: 55%;
+                right: -10%;
+                width: 90%;
+                height: 50%;
+            }
+        }
+    }
+}

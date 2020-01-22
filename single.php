@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
 	<div class="container">
-		
-		<div class="bread-nav">
-			<?php mytheme_breadcrumb(); ?>
-		</div>
 
-		<main class="single-container">
+		<main class="single">
+
+			<div class="single__top">
+				<h2 class="single__top__title">ニュース</h2>
+			</div>
 
 			<?php
 			if (have_posts()) :
@@ -14,29 +14,23 @@
 					the_post();
 			?>
 
-			<section class="single">
-				<div class="single-img">
-					<?php if (has_post_thumbnail()) : ?>
-					<?php the_post_thumbnail(true); ?>
-					<?php else: ?>
-					<?php endif; ?>
-				</div>
+			<section class="single__article">
 
 				<?php
 				$share_url   = get_permalink();
 				$share_title = get_the_title();
 				?>
-				<div class="single-meta">
-					<p class="single-category"><?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?></p>
-					<p class="single-date"><?php echo get_the_date(); ?></p>
+				<div class="single__article__meta">
+					<p class="single__article__meta__category"><?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?></p>
+					<p class="single__article__meta__date"><?php echo get_the_date(); ?></p>
 				</div>
-				<h1 class="single-title"><?php the_title(); ?></h1>
-				<div class="single-text">
+				<h1 class="single__article__title"><?php the_title(); ?></h1>
+				<div class="single__article__text">
 					<?php the_content(); ?>
 				</div>
-				<ul class="social-icons">
-					<li class="icon"><a href="//twitter.com/share?text=<?=$share_title?>&url=<?=$share_url?>" title="Twitterでシェア" onclick="javascript:window.open(this.href, '_blank', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=600');return false;"><i class="fab fa-twitter"> Twitterでシェア</i></a></li>
-					<li class="icon"><a href="//www.facebook.com/sharer.php?src=bm&u=<?=$share_url?>&t=<?=$share_title?>" title="Facebookでシェア" onclick="javascript:window.open(this.href, '_blank', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=800,width=600');return false;"><i class="fab fa-facebook-f"> Facebookでシェア</i></a></li>
+				<ul class="single__article__social">
+					<li class="single__article__social__icon"><a href="//twitter.com/share?text=<?=$share_title?>&url=<?=$share_url?>" title="Twitterでシェア" onclick="javascript:window.open(this.href, '_blank', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=600');return false;"><i class="fab fa-twitter"></i></a></li>
+					<li class="single__article__social__icon"><a href="//www.facebook.com/sharer.php?src=bm&u=<?=$share_url?>&t=<?=$share_title?>" title="Facebookでシェア" onclick="javascript:window.open(this.href, '_blank', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=800,width=600');return false;"><i class="fab fa-facebook-f"></i></a></li>
 				</ul>
 			</section>
 
@@ -58,13 +52,12 @@
 			$nextThumbnail = get_the_post_thumbnail($nextPost->ID, array(120,120) ); // 次の記事のサムネイル画像を取得
 			
 			if( $prevPost || $nextPost ){ // 前の記事か次の記事のどちらかが存在しているなら
-				echo '<div class="prev-next-link">';
-				previous_post_link( '%link', '<p class="prev-label">前の記事</p><div class="thumb-wrap">'.$prevThumbnail.'<p>%title</p></div>', false );
-				next_post_link( '%link', '<p class="next-label">次の記事</p><div class="thumb-wrap">'.$nextThumbnail.'<p>%title</p></div>', false );
+				echo '<div class="single__link">';
+				previous_post_link( '%link', '<p class="single__link__prev-label">前の記事</p><div class="thumb-wrap">'.$prevThumbnail.'<p class="prev-title">%title</p></div>', false );
+				next_post_link( '%link', '<p class="single__link__next-label">次の記事</p><div class="thumb-wrap">'.$nextThumbnail.'<p class="next-title">%title</p></div>', false );
 				echo '</div>';
 			} 
 			?>
-        </main>	
-		<?php get_sidebar(); ?>
+		</main>	
 	</div>
 <?php get_footer(); ?>
