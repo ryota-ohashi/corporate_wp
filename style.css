@@ -405,6 +405,13 @@ h1, h2, h3, p {
           transform: translate(-50%, -50%);
 }
 
+
+@media (max-width: 767px) {
+  .front__bg__title {
+    width: 60%;
+  }
+}
+
 .front__top {
   position: relative;
   width: 100%;
